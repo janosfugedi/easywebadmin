@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
 class IdentifySite
@@ -14,7 +13,15 @@ class IdentifySite
     public function handle(Request $request, Closure $next)
     {
         $host = $request->getHost();
-        $sitePath = base_path("sites/{$host}");
+        $segments = explode('.', $host);
+        // Ellenőrizzük az összes lehetséges domain variációt
+        while (count($segments) >= 2) {
+            $sitePath = base_path("sites/" . implode('.', $segments));
+            if (File::exists($sitePath)) {
+                break;
+            }
+            array_shift($segments); // Eldobjuk a legbaloldalibb szegmenst
+        }
 
         // Ha nincs ilyen könyvtár, akkor a default site-ot használjuk
         if (!File::exists($sitePath)) {

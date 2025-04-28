@@ -9,7 +9,7 @@
 
 @include('theme::region', ['region' => 'header'])
 
-<main>default
+<main>
     @yield('content')
 </main>
 
