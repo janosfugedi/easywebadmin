@@ -17,12 +17,55 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    protected function getHost ():string
+    {
+        $host = request()->getHost();
+        $alias = require base_path("sites/alias.php");
+        if (isset($alias[$host])) {
+            $host = $alias[$host];
+        }
+        return $host;
+    }
 
     /**
      * Bootstrap any application services.
      */
     public function boot()
     {
+        $host = $this->getHost();
+        $segments = explode('.', $host);
+        // Ellenőrizzük az összes lehetséges domain variációt
+        while (count($segments) >= 2) {
+            $sitePath = base_path("sites/" . implode('.', $segments));
+            if (File::exists($sitePath)) {
+                break;
+            }
+            array_shift($segments); // Eldobjuk a legbaloldalibb szegmenst
+        }
+        // config extend
+        if (is_dir("{$sitePath}")) {
+            //View::addLocation("{$sitePath}/views");
+            View::getFinder()->prependLocation("{$sitePath}/views");
+            $siteConfig = require "{$sitePath}/config.php";
+            foreach ($siteConfig as $key => $value) {
+                Config::set($key, $value);
+            }
+            // route extend
+            if (File::exists("{$sitePath}/routes.php")) {
+                Route::middleware('web')
+                    ->group("{$sitePath}/routes.php");
+            }
+            $theme = Config::get('theme', 'default'); // Alapértelmezett theme beállítása
+            View::addNamespace('theme', [
+                base_path("themes/{$theme}/templates"),
+                base_path("themes/default/templates")
+            ]);
+            // Modulok betöltése
+            AppServiceProvider::loadModules("sites/all"); // Globális modulok
+            AppServiceProvider::loadModules("{$sitePath}"); // Site-specifikus modulok
+        }
+
+
         $modulesPath = app_path('Modules');
 
         if (File::exists($modulesPath)) {

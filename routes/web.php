@@ -11,3 +11,8 @@ Route::get('/themes/{theme}/{file}', function ($theme, $file) {
 
     return Response::file($path, ['Content-Type' => 'text/css']);
 })->where('file', '.*');
+
+use App\Http\Controllers\SiteController;
+
+Route::get('/{path?}', [SiteController::class, 'show'])
+    ->where('path', '.*');

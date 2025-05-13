@@ -1,5 +1,5 @@
 <?php
 Route::get('/', function () {
-    return view('sites::welcome');
+    return view('welcome');
 });
 
