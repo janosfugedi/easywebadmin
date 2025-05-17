@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\SiteController;
 use Illuminate\Support\Facades\Route;
+
 // ha a php artisan themes:link nem működne
 Route::get('/themes/{theme}/{file}', function ($theme, $file) {
     $path = base_path("themes/{$theme}/css/{$file}");
@@ -11,8 +13,6 @@ Route::get('/themes/{theme}/{file}', function ($theme, $file) {
 
     return Response::file($path, ['Content-Type' => 'text/css']);
 })->where('file', '.*');
-
-use App\Http\Controllers\SiteController;
 
 Route::get('/{path?}', [SiteController::class, 'show'])
     ->where('path', '.*');
