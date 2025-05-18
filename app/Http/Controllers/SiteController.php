@@ -25,16 +25,8 @@ class SiteController extends Controller
         abort(404);
     }
 
-    public function page(string $slug = null)
+    public function page(array $page)
     {
-        $path = '/' . ltrim($slug, '/');
-
-        $pages = config('pages');
-
-        if (!isset($pages[$path])) {
-            abort(404);
-        }
-        $page    = $pages[$path];
         $theme   = $page['theme'] ?? 'default';
         $regions = $page['regions'] ?? [];
         View::addNamespace('theme', [

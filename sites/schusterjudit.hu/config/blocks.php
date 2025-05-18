@@ -6,7 +6,7 @@ return [
         'data' => [
             'title' => 'Összhangban a belső világoddal',
             'subtitle' => 'Biohacking, energiamenedzsment, teljesítményoptimalizálás',
-            'image' => '/images/hero-bg.jpg',
+            'image' => '/assets/images/hero-bg.png',
             'cta_text' => 'Töltsd ki a tesztet',
             'cta_link' => '/teszt'
         ]
@@ -35,7 +35,7 @@ return [
     4 => [
         'type' => 'footer',
         'data' => [
-            'profile_image' => '/profile.png',
+            'profile_image' => '/assets/images/profile.png',
             'name' => 'Schuster Judit',
             'subtitle' => 'Biohacker Miskolc',
             'note' => 'International Association of Biohackers tagja',
