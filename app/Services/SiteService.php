@@ -69,7 +69,7 @@ class SiteService
         return $sitePath;
     }
 
-    protected function configInit(string $sitePath)
+    protected function configInit(string $sitePath):void
     {
         $configFile = "{$sitePath}/config.php";
 
@@ -82,7 +82,7 @@ class SiteService
             Config::set($key, $value);
         }
     }
-    protected function routeInit(string $sitePath)
+    protected function routeInit(string $sitePath):void
     {
         if (File::exists("{$sitePath}/routes.php")) {
             Route::middleware('web')
@@ -95,12 +95,12 @@ class SiteService
         }
     }
 
-    protected function viewInit (string $sitePath)
+    protected function viewInit (string $sitePath):void
     {
-        View::getFinder()->prependLocation(base_path("{$sitePath}/views"));
+        View::getFinder()->prependLocation("{$sitePath}/views");
         View::getFinder()->prependLocation(base_path("sites/default/views"));
     }
-    protected function loadModules(string $sitePath)
+    protected function loadModules(string $sitePath):void
     {
         // Globális Site Modulok
         if (File::exists(base_path('sites/default/Modules'))) {

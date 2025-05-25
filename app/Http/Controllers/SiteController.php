@@ -29,11 +29,11 @@ class SiteController extends Controller
     {
         $theme   = $page['theme'] ?? 'default';
         $regions = $page['regions'] ?? [];
+        $view   = $page['view'] ?? 'regions';
+
         View::addNamespace('theme', [
             base_path("themes/{$theme}/views/"),
-            base_path("themes/default/views/")
         ]);
-        $view = 'theme::layout';
 
         if (!View::exists($view)) {
             abort(500, "Layout not found for theme [$theme]");

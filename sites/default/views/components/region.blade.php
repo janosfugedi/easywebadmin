@@ -1,4 +1,4 @@
 @foreach($blocks ?? [] as $block)
-    @include('theme::blocks.' . $block['type'],
+    @include('blocks.' . $block['type'],
      ['data' => $block['data'] ?? []])
 @endforeach

@@ -1,5 +1,4 @@
-@extends('layouts.base')
-
+@extends('theme::layout')
 @section('title', 'Állapotfelmérő teszt – Schuster Judit')
 
 @section('content')

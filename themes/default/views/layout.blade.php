@@ -8,10 +8,7 @@
     <link rel="icon" href="/assets/favicon.ico">
 </head>
 <body class="bg-white text-gray-800">
-
-@foreach ($regions as $region => $blockIds)
-    @includeIf('theme::components.region', ['blocks' => $blocks[$region]])
-@endforeach
+@yield('content')
 
 </body>
 </html>

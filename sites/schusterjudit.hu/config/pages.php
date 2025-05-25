@@ -5,8 +5,8 @@ return [
         'theme' => 'default',
         'regions' => [
             'hero' => [1],
-            'content' => [2, 3],
-            'footer' => [4]
+            'content' => [2, 3, 4],
+            'footer' => [5]
         ]
     ],
 
@@ -14,7 +14,11 @@ return [
         'theme' => 'default',
         'regions' => [
             'content' => [3],
-            'footer' => [4]
+            'footer' => [5]
         ]
+    ],
+    '/test' => [
+        'theme' => 'default',
+        'view' => 'pages.test'
     ]
 ];
